@@ -1,0 +1,8 @@
+.slds-global-header__logo {
+    width: 12.5rem;
+    height: 2.5rem;
+    background-image: url(/resources/logo-alen.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: left center;
+}

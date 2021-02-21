@@ -1,0 +1,43 @@
+<template>
+    <header class="slds-global-header_container">
+        <div class="slds-global-header slds-grid slds-grid_align-spread">
+            <div class="slds-global-header__item">
+                <div class="slds-global-header__logo">
+                    <span class="slds-assistive-text">Salesforce</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main
+        class="slds-container slds-container_x-large slds-container_center slds-p-top_x-large slds-m-top_x-large"
+    >
+        <lightning-card title="Capacitación RGM" icon-name="standard:education">
+            <div style="height: 83vh">
+                <my-course-table
+                    columns={columns}
+                    data={data}
+                    key-field="id"
+                    hide-checkbox-column
+                    show-row-number-column
+                    class="slds-table_striped"
+                    column-widths-mode="auto"
+                ></my-course-table>
+            </div>
+            <template if:true={loading}>
+                <lightning-spinner
+                    alternative-text="Cargando proveedores"
+                ></lightning-spinner>
+            </template>
+            <lightning-radio-group
+                name="radioGroup"
+                label="Radio Group"
+                options={areaOptions}
+                value={area}
+                type="button"
+                slot="actions"
+                variant="label-hidden"
+                onchange={handleAreaChange}
+            ></lightning-radio-group>
+        </lightning-card>
+    </main>
+</template>

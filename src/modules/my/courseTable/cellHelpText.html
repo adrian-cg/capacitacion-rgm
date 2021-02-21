@@ -1,0 +1,15 @@
+<template>
+    <div class="slds-grid slds-size_1-of-1 slds-grid_vertical-align-middle slds-p-top_xx-small slds-p-bottom_x-small">
+        <lightning-formatted-url
+            value={value}
+            label={typeAttributes.label}
+            target={typeAttributes.target}
+            class="slds-m-top_xx-small"
+        ></lightning-formatted-url>
+        <lightning-helptext
+            content={typeAttributes.helpText}
+            class="slds-m-top_xxx-small slds-m-left_xxx-small"
+            if:true={typeAttributes.helpText}
+        ></lightning-helptext>
+    </div>
+</template>
