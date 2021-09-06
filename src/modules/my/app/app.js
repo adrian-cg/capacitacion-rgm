@@ -1,5 +1,5 @@
 import { LightningElement, track } from 'lwc';
-import Tabletop from 'tabletop';
+import Papa from 'papaparse';
 
 const columns = [
     {
@@ -55,33 +55,35 @@ export default class App extends LightningElement {
     area = 'todas';
 
     connectedCallback() {
-        Tabletop.init({
-            key:
-                'https://docs.google.com/spreadsheets/d/1ZutTJM-IQu264K4jccjzaMws0WGxV8PDC_aDIaxrRkQ/edit?usp=sharing',
-            simpleSheet: true
-        }).then((data) => {
-            for (const row of data) {
-                const parsedRow = {
-                    area: row['Área'],
-                    nombre: row['Nombre'],
-                    donde: row['Dónde'],
-                    tiempo: row['Tiempo'],
-                    modalidad: row['Modalidad'],
-                    inversion: row['Inversión'],
-                    link: row['Link'] || '#',
-                    contenido: row['Contenido']
-                };
-                this.fullData.push(parsedRow);
-                if (!this.areaSet.has(parsedRow.area)) {
-                    this.areaSet.add(parsedRow.area);
-                    this.areaOptions.push({
-                        label: parsedRow.area,
-                        value: parsedRow.area
-                    });
+        const sheetId = '1ZutTJM-IQu264K4jccjzaMws0WGxV8PDC_aDIaxrRkQ';
+        const sheetUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/pub?output=csv`;
+        Papa.parse(sheetUrl, {
+            download: true,
+            header: true,
+            complete: ({ data }) => {
+                for (const row of data) {
+                    const parsedRow = {
+                        area: row['Área'],
+                        nombre: row['Nombre'],
+                        donde: row['Dónde'],
+                        tiempo: row['Tiempo'],
+                        modalidad: row['Modalidad'],
+                        inversion: row['Inversión'],
+                        link: row['Link'] || '#',
+                        contenido: row['Contenido']
+                    };
+                    this.fullData.push(parsedRow);
+                    if (!this.areaSet.has(parsedRow.area)) {
+                        this.areaSet.add(parsedRow.area);
+                        this.areaOptions.push({
+                            label: parsedRow.area,
+                            value: parsedRow.area
+                        });
+                    }
                 }
+                this.data = [...this.fullData];
+                this.loading = false;
             }
-            this.data = [...this.fullData];
-            this.loading = false;
         });
     }
 

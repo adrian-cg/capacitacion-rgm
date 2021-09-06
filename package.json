@@ -9,7 +9,7 @@
         "express": "^4.17.1",
         "helmet": "^4.3.1",
         "lightning-base-components": "^1.11.1-alpha",
-        "tabletop": "^1.6.3"
+        "papaparse": "^5.3.1"
     },
     "devDependencies": {
         "@lwc/synthetic-shadow": "^1.9.7",
